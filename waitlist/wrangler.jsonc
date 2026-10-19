@@ -1,0 +1,23 @@
+// The waitlist API: one small Worker plus a D1 table, at
+// mindmelding.dev/summit/api/waitlist. The static page posts its form here,
+// wherever the page itself is hosted.
+{
+  "name": "summit-waitlist",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "routes": [{ "pattern": "mindmelding.dev/summit/api/waitlist", "zone_name": "mindmelding.dev" }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "summit-waitlist",
+      // Paste the id that `npx wrangler d1 create summit-waitlist` prints.
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    // Pages allowed to post the form (CORS). Add a preview host here if needed.
+    "ALLOWED_ORIGINS": "https://mindmelding.dev,https://mindmelding.github.io"
+  }
+}

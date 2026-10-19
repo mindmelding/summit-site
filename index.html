@@ -669,11 +669,12 @@
     <div class="wrap">
       <h2 class="reveal">Your first peak is <span class="accent">closer than it looks</span>.</h2>
       <p class="closing-sub reveal" style="transition-delay:.05s">Summit is heading to TestFlight. Leave your email and you'll get one message when the beta opens, and nothing else.</p>
-      <!-- Set FORMSPREE_ID to the form id from formspree.io to switch the form on. -->
-      <form class="waitlist reveal" style="transition-delay:.1s" action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
+      <!-- Posts to the waitlist Worker in waitlist/. -->
+      <form class="waitlist reveal" style="transition-delay:.1s" action="https://mindmelding.dev/summit/api/waitlist" method="POST" novalidate>
         <label class="sr-only" for="email">Email address</label>
         <div class="waitlist-row">
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+          <input class="sr-only" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="pill" type="submit">
             <span class="pill-badge"><span class="letter">S</span><svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             <span class="pill-label">Join the beta</span>
@@ -753,18 +754,16 @@
   window.addEventListener('scroll', function () { top.classList.toggle('show', window.scrollY > 900); }, { passive: true });
   top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
 
-  // Waitlist. Until a Formspree id is set, the form says sign-ups open soon.
+  // Waitlist: posts to the summit-waitlist Worker.
   var form = document.querySelector('.waitlist');
   if (!form) return;
   var note = form.querySelector('.form-note');
-  var input = form.querySelector('input');
+  var input = form.querySelector('input[name=email]');
   var button = form.querySelector('button');
   function say(text, err) { note.textContent = text; note.classList.toggle('err', !!err); }
-  var ready = form.action.indexOf('FORMSPREE_ID') === -1;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!input.value || !input.checkValidity()) { say('That email doesn’t look right.', true); input.focus(); return; }
-    if (!ready) { say('Sign-ups open in a few days. Check back soon.'); return; }
     button.disabled = true;
     fetch(form.action, { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form) })
       .then(function (r) { if (!r.ok) throw new Error(); form.classList.add('done'); say('You’re on the list. One email when the beta opens.'); })

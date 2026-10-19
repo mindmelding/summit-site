@@ -11,6 +11,6 @@ python3 -m http.server 8000
 
 ## Before launch
 
-- **Waitlist:** replace `FORMSPREE_ID` in the form's `action` with the id from formspree.io. Until then the form tells people sign-ups open soon.
+- **Waitlist:** the form posts to the `summit-waitlist` Worker in [`waitlist/`](waitlist/README.md), which saves emails to Cloudflare D1. It needs a one-time setup and deploy before sign-ups work.
 - **App Store:** once the app has an id, uncomment the `apple-itunes-app` meta tag in `<head>` and point the hero button at the App Store.
 - **Links:** Guide, Support and Privacy point at the docs on mindmelding.dev/summit/docs. App Store Connect needs the privacy and support URLs.

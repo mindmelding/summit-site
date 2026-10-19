@@ -12,7 +12,7 @@
       "binding": "DB",
       "database_name": "summit-waitlist",
       // Paste the id that `npx wrangler d1 create summit-waitlist` prints.
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "421c40aa-07b8-47eb-b5ef-9aeff48a07c5",
       "migrations_dir": "migrations"
     }
   ],

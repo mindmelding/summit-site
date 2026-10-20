@@ -6,3 +6,4 @@ wrangler.jsonc
 site
 waitlist
 node_modules
+.wrangler

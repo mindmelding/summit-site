@@ -1,0 +1,8 @@
+.git
+.github
+.nojekyll
+README.md
+wrangler.jsonc
+site
+waitlist
+node_modules

@@ -1,0 +1,14 @@
+// Serves the landing page at mindmelding.dev/summit. The docs Worker
+// (/summit/docs) and the waitlist Worker (/summit/api/waitlist) have more
+// specific routes, so Cloudflare sends those paths to them instead.
+{
+  "name": "summit-site",
+  "main": "site/worker.js",
+  "compatibility_date": "2026-09-01",
+  "assets": { "directory": ".", "binding": "ASSETS", "run_worker_first": true },
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "mindmelding.dev/summit", "zone_name": "mindmelding.dev" },
+    { "pattern": "mindmelding.dev/summit/*", "zone_name": "mindmelding.dev" }
+  ]
+}

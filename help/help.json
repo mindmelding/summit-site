@@ -1,0 +1,74 @@
+{
+  "name": "Summit",
+  "description": "Summit plans neighborhood walks with the climb you ask for and banks every foot toward a real mountain.",
+  "color": "#b5451b",
+  "base": "/summit/docs/",
+  "site": "https://mindmelding.dev",
+  "home": "/summit",
+  "links": [
+    {
+      "label": "Back to Summit",
+      "href": "/summit"
+    }
+  ],
+  "tabs": [
+    {
+      "label": "Guide",
+      "groups": [
+        {
+          "group": "Get started",
+          "pages": [
+            "what-is",
+            "install",
+            "first-walk"
+          ]
+        },
+        {
+          "group": "Plan",
+          "pages": [
+            "plan-a-loop",
+            "start-to-end"
+          ]
+        },
+        {
+          "group": "Walk",
+          "pages": [
+            "track-a-walk",
+            "walk-card"
+          ]
+        },
+        {
+          "group": "Goal",
+          "pages": [
+            "peaks-and-goals",
+            "widgets"
+          ]
+        },
+        {
+          "group": "Settings",
+          "pages": [
+            "settings"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Reference",
+      "groups": [
+        {
+          "group": "How it works",
+          "pages": [
+            "how-climb-is-counted",
+            "privacy"
+          ]
+        },
+        {
+          "group": "Help",
+          "pages": [
+            "troubleshooting"
+          ]
+        }
+      ]
+    }
+  ]
+}

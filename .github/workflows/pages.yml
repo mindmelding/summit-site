@@ -1,7 +1,6 @@
 name: Deploy site
+# Manual only, so turning on Actions doesn't publish a second copy on every merge.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

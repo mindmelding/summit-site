@@ -1,0 +1,16 @@
+// Serves the built docs (../dist-help) as a static-assets Worker at
+// mindmelding.dev/summit/docs. The site Worker owns the rest of the domain.
+{
+  "name": "summit-docs",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "../dist-help",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+  // Required by `wrangler preview`, which Cloudflare's Workers Builds runs for every branch and PR.
+  "previews": {},
+  "routes": [{ "pattern": "mindmelding.dev/summit/docs*", "zone_name": "mindmelding.dev" }]
+}

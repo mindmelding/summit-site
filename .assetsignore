@@ -7,3 +7,5 @@ site
 waitlist
 node_modules
 .wrangler
+help
+dist-help

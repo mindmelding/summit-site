@@ -1,7 +1,8 @@
 name: Deploy to Cloudflare
 
-# Deploys the landing page Worker (mindmelding.dev/summit) and the waitlist
-# Worker (/summit/api/waitlist) from GitHub instead of the Mac.
+# Deploys the landing page Worker (mindmelding.dev/summit), the waitlist
+# Worker (/summit/api/waitlist) and the customer docs Worker (summit-docs, from
+# help/, at /summit/docs) from GitHub instead of the Mac.
 # Manual only: run it from the Actions tab (or from a cloud session) once Sean
 # has said "deploy the site". Nothing deploys on merge.
 #
@@ -15,7 +16,7 @@ on:
       target:
         description: What to deploy
         type: choice
-        options: [site, waitlist, both]
+        options: [site, waitlist, both, docs, all]
         default: site
 
 permissions:
@@ -27,7 +28,7 @@ concurrency:
 
 jobs:
   site:
-    if: inputs.target == 'site' || inputs.target == 'both'
+    if: inputs.target == 'site' || inputs.target == 'both' || inputs.target == 'all'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +42,7 @@ jobs:
         run: curl -fsS -o /dev/null -w "%{http_code} %{url_effective}\n" https://mindmelding.dev/summit/
 
   waitlist:
-    if: inputs.target == 'waitlist' || inputs.target == 'both'
+    if: inputs.target == 'waitlist' || inputs.target == 'both' || inputs.target == 'all'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -54,3 +55,22 @@ jobs:
           command: |
             d1 migrations apply summit-waitlist --remote
             deploy
+
+  docs:
+    if: inputs.target == 'docs' || inputs.target == 'all'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the docs
+        run: npx -y github:mindmelding/docs-kit build help --out dist-help
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: deploy -c help/wrangler.jsonc
+      - name: Check the live docs
+        run: curl -fsS -o /dev/null -w "%{http_code} %{url_effective}\n" https://mindmelding.dev/summit/docs/

@@ -203,7 +203,7 @@
   .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
   @media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
   .stat-num { font-size: clamp(40px, 5vw, 64px); font-weight: 600; letter-spacing: -0.04em; color: var(--ink-800); line-height: 1.05; font-variant-numeric: tabular-nums; }
-  .stat-num .accent { font-size: .45em; letter-spacing: -0.01em; margin-left: 4px; }
+  .stat-num .accent { font-size: .45em; letter-spacing: -0.01em; margin-left: 4px; color: var(--rust-deep); }
   .stat-label { font-size: 18px; line-height: 1.5; margin-top: 8px; max-width: 240px; }
 
   /* ---------- How it works ---------- */
@@ -289,6 +289,12 @@
   .walkcard-layout { display: grid; gap: 48px; align-items: center; grid-template-columns: 1fr; }
   @media (min-width: 900px) { .walkcard-layout { grid-template-columns: 5fr 6fr; gap: 72px; } }
   .walkcard-art { position: relative; display: grid; place-items: center; padding: 40px 0; }
+  .screens { display: grid; grid-template-columns: 1fr; gap: 40px; justify-items: center; }
+  @media (min-width: 760px) { .screens { grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; } }
+  .screen { margin: 0; max-width: 300px; width: 100%; }
+  .screen img { display: block; width: 100%; height: auto; border-radius: 34px; border: 8px solid var(--ink); background: var(--ink); box-shadow: 0 18px 40px rgba(0,0,0,.12); }
+  .screen figcaption { margin-top: 16px; text-align: center; font-size: 16px; line-height: 1.4; }
+  .screen figcaption b { display: block; font-size: 18px; }
   .walkcard-art::before {
     content: ""; position: absolute; inset: 0 8%;
     background: var(--peach); border-radius: 4px; transform: rotate(-3deg);
@@ -446,6 +452,29 @@
         <div class="marquee-track" id="marquee-track"></div>
       </div>
       <p class="marquee-caption reveal" style="transition-delay:.35s">111 peaks to climb, from San Diego warm-ups to the Seven Summits.</p>
+    </div>
+  </section>
+
+  <!-- Real screens -->
+  <section class="section" id="screens" aria-labelledby="screens-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 id="screens-title">Straight from the app</h2>
+      </div>
+      <div class="screens">
+        <figure class="screen reveal">
+          <img src="assets/screens/plan.webp" width="660" height="1434" loading="lazy" alt="Summit's Plan screen: a 3.3 mile loop from Bernal Heights in San Francisco with 469 ft of climb, its elevation profile, and a Start this walk button.">
+          <figcaption><b>Ask for a climb</b>A loop from where you stand with the climb you asked for.</figcaption>
+        </figure>
+        <figure class="screen reveal" style="transition-delay:.08s">
+          <img src="assets/screens/goal.webp" width="660" height="1434" loading="lazy" alt="Summit's Goal screen: Cowles Mountain 26 percent filled in after 4 walks, with the next milestone and a projected summit date of Nov 11.">
+          <figcaption><b>Bank it on a peak</b>Every walk fills your mountain a little higher.</figcaption>
+        </figure>
+        <figure class="screen reveal" style="transition-delay:.16s">
+          <img src="assets/screens/walk-card.webp" width="660" height="1434" loading="lazy" alt="A saved walk in Summit: +82 ft over 2.6 miles in 40 minutes, the trail drawn as a line, and Cowles Mountain moved from 38 to 43 percent.">
+          <figcaption><b>Keep the card</b>Each walk ends with the climb, the trail and your progress.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 

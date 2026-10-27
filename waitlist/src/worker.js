@@ -19,6 +19,25 @@ function reply(status, body, headers) {
   });
 }
 
+// Count the signup in PostHog. Never sends the email, IP or user agent;
+// distinct_id is a random UUID, so this counts signups and identifies no one.
+async function capture(env, { source, newSignup, isTest }) {
+  try {
+    await fetch(`${env.POSTHOG_HOST || 'https://us.i.posthog.com'}/i/v0/e/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: env.POSTHOG_KEY,
+        event: 'waitlist_signup',
+        distinct_id: crypto.randomUUID(),
+        properties: { source, new_signup: newSignup, is_test: isTest, $process_person_profile: false, $lib: 'summit-waitlist-worker' },
+      }),
+    });
+  } catch {
+    // Tracking must never break a signup.
+  }
+}
+
 async function readFields(request) {
   const type = request.headers.get('Content-Type') || '';
   if (type.includes('application/json')) return await request.json();
@@ -27,7 +46,7 @@ async function readFields(request) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const headers = cors(request, env);
 
     if (request.method === 'OPTIONS') {
@@ -54,9 +73,15 @@ export default {
     }
 
     // Signing up twice is fine; the first date is kept.
-    await env.DB.prepare('INSERT OR IGNORE INTO signups (email, source) VALUES (?, ?)')
-      .bind(email, String(fields.source || 'site').slice(0, 40))
+    const source = String(fields.source || 'site').slice(0, 40);
+    const result = await env.DB.prepare('INSERT OR IGNORE INTO signups (email, source) VALUES (?, ?)')
+      .bind(email, source)
       .run();
+
+    if (env.POSTHOG_KEY) {
+      const isTest = env.IS_TEST === 'true' || request.headers.get('Origin') !== 'https://mindmelding.dev';
+      ctx.waitUntil(capture(env, { source, newSignup: (result?.meta?.changes ?? 0) > 0, isTest }));
+    }
 
     return reply(200, { ok: true }, headers);
   },

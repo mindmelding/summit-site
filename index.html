@@ -14,9 +14,16 @@
 <!-- Once Summit has an App Store id, add: <meta name="apple-itunes-app" content="app-id=XXXXXXXXXX"> -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23FF5B14'/%3E%3Cpath d='M12 46 L26 26 L33 35 L40 22 L52 46 Z' fill='%2314231C'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="assets/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/Rubik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/BarlowCondensed-ExtraBoldItalic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Self-hosted: the same Latin subsets the app bundles (SIL OFL, licenses in assets/fonts/). */
+  @font-face { font-family: "Rubik"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/Rubik-Regular.woff2") format("woff2"); }
+  @font-face { font-family: "Rubik"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/Rubik-Medium.woff2") format("woff2"); }
+  @font-face { font-family: "Rubik"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/Rubik-Bold.woff2") format("woff2"); }
+  @font-face { font-family: "Rubik"; font-style: normal; font-weight: 800; font-display: swap; src: url("assets/fonts/Rubik-ExtraBold.woff2") format("woff2"); }
+  @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 800; font-display: swap; src: url("assets/fonts/BarlowCondensed-ExtraBoldItalic.woff2") format("woff2"); }
+</style>
 <style>
   /* Switchbacks look: matches the app's Theme.swift. White ground, ink text, orange/sky/gold fills
      (never as text on white: use the -text shades), Rubik for words, Barlow Condensed for numbers and headlines. */

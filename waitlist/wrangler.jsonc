@@ -18,6 +18,9 @@
   ],
   "vars": {
     // Pages allowed to post the form (CORS). Add a preview host here if needed.
-    "ALLOWED_ORIGINS": "https://mindmelding.dev,https://mindmelding.github.io"
+    "ALLOWED_ORIGINS": "https://mindmelding.dev,https://mindmelding.github.io",
+    // Summit PostHog project ingest key. Public and write-only, like the key shipped in the app.
+    "POSTHOG_KEY": "phc_omGYiXHpQPhhjhttbDSSDodLSdLio4PLuuPFVExFXjBk",
+    "POSTHOG_HOST": "https://us.i.posthog.com"
   }
 }

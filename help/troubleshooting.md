@@ -19,6 +19,14 @@ The route service couldn't make a loop from your start pin. This happens on priv
 
 Planning needs an internet connection. Check your signal and tap **Try again**. If it says the route service is taking too long, try again, or move the start pin somewhere with more streets nearby.
 
+## "Summit's route planner is out of searches for today."
+
+Every copy of Summit shares one route service, and it has a daily limit. When the limit is used up, planning stops until the next day. Tracking, goals and widgets keep working. Tap **Start a free walk** on the card to walk without a route, and your climb still counts toward your peak.
+
+## "You've planned 3 routes today."
+
+Each iPhone can plan 3 routes a day, so the shared route service lasts for everyone. Tap **Start a free walk** to walk now, or plan again tomorrow.
+
 ## The routes have far less climb than I asked for
 
 Summit looks for loops up to about 15 miles. In flat areas, even the longest loop may not reach your target, so you'll see the closest it found. Try a smaller target, pick a start near a hill, or plan a [start-to-end walk](/start-to-end) up and down one steep street.
